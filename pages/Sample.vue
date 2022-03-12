@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-row>
+    <b-row class="mb-3">
       <b-col sm="6">
         <b-alert
           :show="alertObj.dismissCountDown"
@@ -16,7 +16,7 @@
 
     <PostTable :items="items" :isBusy="isBusy" />
 
-    <b-row>
+    <b-row class="mb-3">
       <b-col sm="4">
         <b-input-group prepend="XXX">
           <b-input v-model="inputForm.value" />
@@ -25,6 +25,13 @@
       <b-col sm="3">
         <b-button variant="info" @click="submitPost">SUBMIT</b-button>
       </b-col>
+    </b-row>
+    <b-row class="mb-3">
+      <b-col sm="4">
+        <SampleSelect :selected.sync="inputForm.selected" />
+      </b-col>
+    </b-row>
+    <b-row class="mb-3">
       {{ inputForm }}
     </b-row>
   </div>
@@ -35,6 +42,7 @@ import { Component, Vue } from "nuxt-property-decorator";
 
 interface Form {
   value: string;
+  selected: string;
 }
 
 @Component({
@@ -43,7 +51,7 @@ interface Form {
 export default class Sample extends Vue {
   isBusy = false;
   items: any = [];
-  inputForm: Form = { value: "" };
+  inputForm: Form = { value: "", selected: "" };
   alertObj = {
     dismissCountDown: 0,
   };
