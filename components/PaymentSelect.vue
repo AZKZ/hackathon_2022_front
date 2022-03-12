@@ -1,7 +1,11 @@
 <template>
   <div>
     <b-input-group prepend="料金種別">
-      <b-form-select v-model="_selected" :options="options"></b-form-select>
+      <b-form-select
+        v-model="_selected"
+        :options="options"
+        :disabled="disabled"
+      ></b-form-select>
     </b-input-group>
   </div>
 </template>

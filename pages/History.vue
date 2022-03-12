@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-row class="mb-3">
-      <h1>詳細画面</h1>
+      <h2>詳細画面</h2>
     </b-row>
     <b-row class="mb-3">
       <b-col sm="3">
@@ -15,14 +15,18 @@
         </b-input-group>
       </b-col>
       <b-col sm="3">
-        <StoreSelect :selected.sync="customer.paymentCode" :disabled="true" />
-      </b-col>
-      <b-col sm="3">
-        <GenderSelect :selected.sync="customer.gender" :disabled="true" />
+        <b-input-group prepend="性別">
+          <b-input v-model="customer.gender" disabled />
+        </b-input-group>
       </b-col>
     </b-row>
 
     <HistoryTable :items="items" :isBusy="isBusy" />
+    <b-row class="mb-3">
+      <b-col>
+        <b-button variant="info" @click="back">戻る</b-button>
+      </b-col>
+    </b-row>
   </div>
 </template>
 
@@ -38,7 +42,6 @@ export default class History extends Vue {
   customer = {
     name: "",
     birthday: "",
-    paymentCode: "",
     gender: "",
   };
 
@@ -66,7 +69,7 @@ export default class History extends Vue {
       this.customer.gender = res.data.gender;
 
       this.items.splice(0);
-      this.items.push(...res.data.history);
+      this.items.push(...res.data.histories);
     } catch (error) {
       alert("Error");
       console.error(error);
@@ -74,5 +77,9 @@ export default class History extends Vue {
       this.isBusy = false;
     }
   };
+
+  back() {
+    this.$router.push({ path: "/search" });
+  }
 }
 </script>

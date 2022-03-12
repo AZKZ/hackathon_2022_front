@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-row class="mb-3">
-      <h1>一覧画面</h1>
+      <h2>一覧画面</h2>
     </b-row>
     <b-row class="mb-3">
       <b-col sm="4">
@@ -10,7 +10,7 @@
         </b-input-group>
       </b-col>
       <b-col sm="4">
-        <SampleSelect :selected.sync="inputForm.paymentCode" />
+        <PaymentSelect :selected.sync="inputForm.paymentCode" />
       </b-col>
     </b-row>
     <b-row class="mb-3">
@@ -28,8 +28,12 @@
         <b-button variant="info" @click="search">検索</b-button>
       </b-col>
     </b-row>
-
     <CustomerTable :items="items" :isBusy="isBusy" />
+    <b-row class="mb-3">
+      <b-col>
+        <b-button variant="success" @click="goRegister">登録画面</b-button>
+      </b-col>
+    </b-row>
   </div>
 </template>
 
@@ -81,26 +85,16 @@ export default class Sample extends Vue {
       this.items.splice(0);
       this.items.push(...res.data);
     } catch (error) {
-      // alert("Error");
-
-      // 暫定コード START
-      var dummy = [
-        {
-          name: "田中 太郎",
-          birthday: "1995-07-02",
-          gender: "男性",
-          payment: ["AAA", "BBBB"],
-        },
-      ];
-      this.items.splice(0);
-      this.items.push(...dummy);
-
-      // 暫定コード END
+      alert("Error");
 
       console.error(error);
     } finally {
       this.isBusy = false;
     }
   };
+
+  goRegister() {
+    this.$router.push({ path: "newcustomer" });
+  }
 }
 </script>

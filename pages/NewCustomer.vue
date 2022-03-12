@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-row class="mb-3">
-      <h1>顧客登録画面</h1>
+      <h2>顧客登録画面</h2>
     </b-row>
     <b-row class="mb-3">
       <b-col>
@@ -28,8 +28,11 @@
       </b-col>
     </b-row>
     <b-row class="mb-3">
-      <b-col>
-        <b-button variant="info" @click="register">登録</b-button>
+      <b-col sm="1">
+        <b-button variant="success" @click="register">登録</b-button>
+      </b-col>
+      <b-col sm="1">
+        <b-button variant="info" @click="back">戻る</b-button>
       </b-col>
     </b-row>
   </div>
@@ -69,24 +72,20 @@ export default class Sample extends Vue {
     }
 
     try {
-      const res = await this.$axios.post(
-        `http://localhost:8080/customers/`,
-        this.inputForm
-      );
+      const res = await this.$axios.post(`/api/customers/`, this.inputForm);
 
       alert("登録が完了しました。");
       this.$router.push({ path: "/search" });
     } catch (error) {
-      // 暫定コード START
-      alert("登録が完了しました。");
-      this.$router.push({ path: "/search" });
-      // 暫定コード END
-
       alert("Error");
       console.error(error);
     } finally {
       this.isBusy = false;
     }
   };
+
+  back() {
+    this.$router.push({ path: "/search" });
+  }
 }
 </script>

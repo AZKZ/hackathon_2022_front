@@ -6,14 +6,17 @@
       hover
       show-empty
       bordered
+      fixed
       :busy.sync="isBusy"
       :fields="fields"
       :items="items"
       head-row-variant="success"
     >
       <template #cell(actions)="row">
-        <b-button @click="goHistory(row.item.id)"> 詳細 </b-button>
-        <b-button @click="alert(row)"> 編集 </b-button>
+        <b-button variant="info" @click="goHistory(row.item.id)">
+          詳細
+        </b-button>
+        <b-button variant="info" @click="alert(row)"> 編集 </b-button>
       </template>
     </b-table>
   </div>
@@ -33,10 +36,10 @@ export default class CustomerTable extends Vue {
   items: any;
 
   fields = [
-    { key: "actions", label: "" },
+    { key: "actions", label: "", tdClass: "text-center" },
     { key: "name", label: "名前" },
     { key: "birthday", label: "生年月日" },
-    { key: "payment", label: "料金種別" },
+    { key: "paymentName", label: "料金種別" },
     { key: "gender", label: "性別" },
   ];
 
